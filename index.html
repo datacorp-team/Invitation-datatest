@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Placeholder text</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .logodata {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      bottom: 35vh;
+      width: 100%;
+      z-index: 5;
+    }
+
+    #logo {
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      width: 200px; 
+
+    }
+    @keyframes floating {
+        0%   { transform: translateY(0); }
+        50%  { transform: translateY(-20px); }
+        100% { transform: translateY(0); }
+        }
+
+    .floating {animation: floating 3s ease-in-out infinite;}
+
+    #logo.visible-logo {
+      opacity: 1;
+    }
+
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -5;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 4s ease-in-out;
+    }
+
+    .content.visible {
+      opacity: 1;
+    }
+    .content h1{
+        font-size: small;
+    }
+
+    .content.invisible {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .typewriter-anim {
+      border-right: .15em solid orange;
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
+      animation: typing 3.5s steps(40, end) forwards;
+    }
+
+    .blink-anim {
+      animation: blink-caret .75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent; }
+      50% { border-color: orange; }
+    }
+
+    .bigtext, .text1, .text2, .text3 {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <video class="video-background" autoplay muted id="bgvid">
+    <source src="bg_vid_pc.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="content" id="content">
+    <h1 class="bigtext">Le destin de la Data Corporation doit reposer sur des épaules braves.</h1>
+    <h1 class="text1">Viens prouver que tu mérites de porter le flambeau de la future génération.</h1>
+    <h1 class="text2">N'oublie pas, la victoire appartient à ceux qui osent se dresser contre l'inconnu.</h1>
+    <h1 class="text3">Rendez-vous Samedi 10 Mai 2025 14h45, MPSI D</h1>
+  </div>
+
+  <div class="logodata floating">
+    <img id="logo" src="logodata.png" alt="Logo">
+  </div>
+
+  <script>
+    const content = document.getElementById('content');
+    const video = document.getElementById('bgvid');
+    video.playbackRate = 0.5;
+
+    const bigtext = document.querySelector('.bigtext');
+    const text1 = document.querySelector('.text1');
+    const text2 = document.querySelector('.text2');
+    const text3 = document.querySelector('.text3');
+
+    // Début des animations après 9.5s
+    setTimeout(() => {
+      content.classList.add('visible');
+
+      setTimeout(() => {
+        bigtext.classList.add('typewriter-anim', 'blink-anim');
+        setTimeout(() => bigtext.classList.remove('blink-anim'), 1000);
+      }, 0);
+
+      setTimeout(() => {
+        text1.classList.add('typewriter-anim', 'blink-anim');
+        setTimeout(() => text1.classList.remove('blink-anim'), 1000);
+      }, 5200);
+
+      setTimeout(() => {
+        text2.classList.add('typewriter-anim', 'blink-anim');
+        setTimeout(() => text2.classList.remove('blink-anim'), 1000);
+      }, 9200);
+
+      setTimeout(() => {
+        text3.classList.add('typewriter-anim', 'blink-anim');
+        setTimeout(() => text3.classList.remove('blink-anim'), 1000);
+      }, 13200);
+
+      setTimeout(() => {
+        content.classList.remove('visible');
+        content.classList.add('invisible');
+      }, 17700);
+    }, 9500);
+
+    // Apparition du logo avec fondu
+    setTimeout(() => {
+      document.getElementById('logo').classList.add('visible-logo');
+    }, 31250);
+  </script>
+
+</body>
+</html>
